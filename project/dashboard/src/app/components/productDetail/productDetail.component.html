@@ -1,0 +1,74 @@
+<div class="container">
+
+  <div class="row">
+    <div *ngIf="transactions.length === 0" class="col-md-12">
+      <h4>This product is not stored in the blockchain</h4>
+      <p>An account is stored on the blockchain with the first transaction issued. You have generated
+        keypairs for this product but did not use them in any transaction.</p>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="transactions.length !== 0">
+    <!-- Account Info -->
+    <div class="col-md-6">
+      <h1>Product #{{id}}</h1>
+
+      <table class="table" style="max-width: 100%;">
+        <thead>
+        <tr scope="col"></tr>
+        <tr scope="col"></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">Address</th>
+          <td>{{accountInfo?.address.plain()}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Address Height</th>
+          <td>{{accountInfo?.addressHeight.compact()}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Public Key</th>
+          <td>{{publicAccount.publicKey}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Public Height</th>
+          <td>{{accountInfo?.publicKeyHeight.compact()}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Mosaics -->
+    <div class="col-md-6">
+      <h1>Mosaics</h1>
+
+      <table class="table" style="max-width: 100%;">
+        <thead>
+        <tr>
+          <th scope="col">Mosaic Name</th>
+          <th scope="col">Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let mosaic of mosaics;">
+          <td scope="row"><b>{{mosaic.fullName()}}</b></td>
+          <td>{{mosaic.relativeAmount()}}</td>
+        </tr>
+        </tbody>
+        <p *ngIf="mosaics.length === 0">The product does not have any seal</p>
+      </table>
+    </div>
+  </div>
+  <div class="row" *ngIf="transactions.length !== 0">
+    <div class="col-md-12">
+      <h2>Last 10 transactions</h2>
+
+      <div class="gap">
+        <ol>
+          <li *ngFor="let transaction of transactions;">{{transaction | formatTransaction}}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div [hidden]="!product"class="alert alert-success" role="alert">
+        <span>Product <strong>#{{product?.id}}</strong> created!</span>
+      </div>
+      <div [hidden]="!errorMessage" class="alert alert-danger" role="alert">
+        <span>{{errorMessage}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <form>
+        <button type="submit" (click)="createProduct()" class="btn btn-primary">Create New Product</button>
+      </form>
+    </div>
+  </div>
+  <div class="row gap">
+    <div class="col-md-12">
+      <table class="table" style="max-width: 100%;">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Address</th>
+          <th scope="col">Public Key</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let product of products;">
+          <th scope="row"> <a href="/product/{{product.id}}">#{{product.id}}</a></th>
+          <td>{{(product.id | productDeterministicPublicAccount).address.plain()}}</td>
+          <td>{{(product.id | productDeterministicPublicAccount).publicKey}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <div *ngIf="products.length === 0">
+        <b>There aren't products created.</b>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div [hidden]="!successMessage"class="alert alert-success" role="alert">
+        <span>{{successMessage}}</span>
+      </div>
+      <div [hidden]="!errorMessage" class="alert alert-danger" role="alert">
+        <span>{{errorMessage}}</span>
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Create Multisig</h2>
+      <h3>Account to convert into multisig</h3>
+      <form>
+        <div class="form-group">
+          <label for="privateKey">Private key:</label>
+          <input type="password" class="form-control" name="privateKey" id="privateKey" [(ngModel)]="privateKey">
+        </div>
+        <h3>Cosignatories</h3>
+        <div *ngFor="let cosignatory of cosignatories; let i = index">
+          <div class="form-group">
+            <label>Public key:</label>
+            <input type="text" [(ngModel)]="cosignatories[i]" name="{{i}}" class="form-control"/>
+          </div>
+          <br/>
+        </div>
+        <button class="btn btn-info" (click)="addCosignatory()">Add Cosignatory</button>
+        <div class="form-group">
+          <label for="minApproval">Min Approval:</label>
+          <input type="number" min="1" class="form-control" name="minApproval" id="minApproval" [(ngModel)]="minApproval">
+        </div>
+        <input [disabled]='!areAccountsValid() || !minApproval || !privateKey' type="button" class="btn btn-primary" value="Create Multisig" (click)="createMultisig()">
+      </form>
+      <p>{{progress}}</p>
+    </div>
+  </div>
+</div>

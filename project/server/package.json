@@ -1,0 +1,50 @@
+{
+  "name": "workshop-nem-server",
+  "version": "0.1.0",
+  "description": "Typescript seed",
+  "scripts": {
+    "pretest": "rm -rf dist && tsc",
+    "test": "NODE_ENV=test mocha dist/test/**/**/*.spec.js -R spec --bail",
+    "test:cov": "rm -rf coverage && istanbul cover --include-all-sources --dir ./dist/coverage node_modules/mocha/bin/_mocha -- dist/test/**/*.spec.js -R spec --bail",
+    "test:remap": "remap-istanbul -i dist/coverage/coverage.json -o coverage -t html",
+    "dist": "rm -rf dist && tsc",
+    "start": "tsc && node bin/www.js NODE_ENV=local"
+  },
+  "keywords": [
+    "TypeScript",
+    "Seed"
+  ],
+  "devDependencies": {
+    "@types/chai": "^3.4.35",
+    "@types/mocha": "^2.2.40",
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "mocha-typescript": "^1.0.23",
+    "remap-istanbul": "^0.9.5",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.2.2"
+  },
+  "dependencies": {
+    "@reactivex/rxjs": "^6.2.1",
+    "@types/body-parser": "^1.16.3",
+    "@types/express": "^4.0.35",
+    "@types/mongoose": "^4.7.11",
+    "@types/node": "^7.0.16",
+    "@types/supertest": "^2.0.0",
+    "@types/winston": "^2.3.1",
+    "body-parser": "^1.17.1",
+    "chance": "^1.0.12",
+    "dotenv": "^6.0.0",
+    "express": "^4.15.2",
+    "mysql2": "^1.5.1",
+    "nem2-asset-identifier": "^0.3.4",
+    "nem2-sdk": "^0.10.0",
+    "path": "^0.12.7",
+    "rxjs": "^6.2.1",
+    "sequelize": "^4.38.0",
+    "sqlite3": "^3.1.13",
+    "supertest": "^3.0.0",
+    "winston": "^2.3.1"
+  }
+}
