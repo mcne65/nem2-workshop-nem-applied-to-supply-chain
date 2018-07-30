@@ -12,6 +12,7 @@ import {
     TransferTransaction
 } from "nem2-sdk";
 import {Observable} from "rxjs/Rx";
+import {mergeMap, filter} from "rxjs/operators";
 
 export class SensorService {
 
@@ -35,8 +36,10 @@ export class SensorService {
 
             this.listener
                 .aggregateBondedAdded(address)
-                .filter((_) => !_.signedByAccount(sensorAccount.publicAccount))
-                .flatMap(transaction => this.digitalInspection(transaction, sensorAccount))
+                .pipe(
+                    filter((_) => !_.signedByAccount(sensorAccount.publicAccount)),
+                    mergeMap(transaction => this.digitalInspection(transaction, sensorAccount))
+                )
                 .subscribe(announcedTransaction => console.log(announcedTransaction),
                     err => console.log(err));
         });

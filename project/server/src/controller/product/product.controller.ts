@@ -1,6 +1,8 @@
 import {ExpressSignature} from "../IRoute";
 import {ProductService} from "../../domain/product/product.service";
 
+import {mergeMap, map, toArray} from "rxjs/operators";
+
 export let createProduct: ExpressSignature = (request, response, next) => {
     const productService = new ProductService();
 
@@ -14,9 +16,11 @@ export let getProducts: ExpressSignature = (request, response, next) => {
     const productService = new ProductService();
 
     return productService.getProducts()
-        .flatMap(_ => _)
-        .map(product => product.toMessage())
-        .toArray()
+        .pipe(
+            mergeMap(_ => _),
+            map(product => product.toMessage()),
+            toArray()
+        )
         .subscribe(products => {
                 return response.status(200).send(products)
             },

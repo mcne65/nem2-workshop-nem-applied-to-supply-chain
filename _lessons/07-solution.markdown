@@ -27,7 +27,7 @@ Accounts can be used to represent assets, identifying each product uniquely and 
 
 Any actor could trace events related to a product by checking its address. 
 
-Product accounts don't need to send transactions, they only receive them. To guarantee none of them sign transactions, we are generating each public key in a deterministic way.
+Product accounts don't need to send transactions, they only receive them. To guarantee none of them sign transactions, we are generating each public key in a deterministic way. Generate a hash that represents the public key, not knowing the private key related.
 
 *publicKey = sha256(company_identifier + product_identifier)*
 

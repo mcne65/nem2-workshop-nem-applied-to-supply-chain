@@ -3,6 +3,7 @@ import {DatabaseService} from "../../service/database.service";
 import {ProductModel} from "./product.model";
 import {Asset, AssetService} from "nem2-asset-identifier";
 import {Observable} from "rxjs/Rx";
+import {mergeMap, map, toArray} from "rxjs/operators";
 
 export class ProductService {
 
@@ -22,9 +23,11 @@ export class ProductService {
 
     public getProducts(): Observable<ProductModel[]> {
         return Observable.fromPromise(DatabaseService.ProductDatabase.all())
-            .mergeMap((_): any => _)
-            .map((_: any) => new ProductModel(_.dataValues.id))
-            .toArray();
+            .pipe(
+                mergeMap((_): any => _),
+                map((_: any) => new ProductModel(_.dataValues.id)),
+                toArray()
+            );
     }
 
     public registerProductInBlockchain(account: Account, productId: number) : Observable<TransactionAnnounceResponse>{

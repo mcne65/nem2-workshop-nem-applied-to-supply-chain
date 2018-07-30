@@ -5,7 +5,6 @@ import {corsMiddlewater} from "./middlewares";
 import {DatabaseService} from "./service/database.service";
 import {SensorService} from "./service/sensor.service";
 import ProductRouter from "./controller/product/product.router";
-import {Observable} from "rxjs/Rx";
 
 export class Server {
     public static bootstrap(): Server {

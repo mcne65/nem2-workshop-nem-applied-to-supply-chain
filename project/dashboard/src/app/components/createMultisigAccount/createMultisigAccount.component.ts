@@ -12,6 +12,7 @@ import {
 import {ConstantsService} from "../../services/constants.service";
 import {MultisigService} from "../../services/multisig.service";
 
+import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-multisig-account',
@@ -103,18 +104,22 @@ export class CreateMultisigAccountComponent implements OnInit {
 
     this.listener
       .unconfirmedAdded(address)
-      .filter((transaction) => transaction instanceof ModifyMultisigAccountTransaction
-        && transaction.transactionInfo !== undefined
-        && transaction.transactionInfo.hash === hash)
+      .pipe(
+        filter((transaction) => transaction instanceof ModifyMultisigAccountTransaction
+          && transaction.transactionInfo !== undefined
+          && transaction.transactionInfo.hash === hash)
+        )
       .subscribe(ignored => {
           this.progress = 'Transaction unconfirmed';
         }, err => console.error(err));
 
     this.listener
       .confirmed(address)
-      .filter((transaction) => transaction instanceof ModifyMultisigAccountTransaction
-        && transaction.transactionInfo !== undefined
-        && transaction.transactionInfo.hash === hash)
+      .pipe(
+        filter((transaction) => transaction instanceof ModifyMultisigAccountTransaction
+          && transaction.transactionInfo !== undefined
+          && transaction.transactionInfo.hash === hash)
+      )
       .subscribe(ignored => {
           this.progress = 'Transaction confirmed';
         }, err => console.error(err));

@@ -16,6 +16,7 @@ import {
 } from "nem2-sdk";
 import {Asset} from "nem2-asset-identifier";
 
+import {filter, mergeMap} from "rxjs/operators";
 @Component({
   selector: 'app-send-safety-seal',
   templateUrl: './sendSafetySeal.component.html'
@@ -141,9 +142,11 @@ export class SendSafetySealComponent implements OnInit {
 
         this.listener
           .confirmed(operatorAccount.address)
-          .filter((transaction) => transaction.transactionInfo !== undefined
-            && transaction.transactionInfo.hash === lockFundsTransactionSigned.hash)
-          .flatMap(ignored => this.transactionHttp.announceAggregateBonded(signedTransaction))
+          .pipe(
+            filter((transaction) => transaction.transactionInfo !== undefined
+              && transaction.transactionInfo.hash === lockFundsTransactionSigned.hash),
+            mergeMap(ignored => this.transactionHttp.announceAggregateBonded(signedTransaction))
+          )
           .subscribe(announcedAggregateBonded => {
               this.successMessage = announcedAggregateBonded.message;
             },
