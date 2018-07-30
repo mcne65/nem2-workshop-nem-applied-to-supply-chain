@@ -103,18 +103,26 @@ Open ``project/dashboard/src/app/components/sendsafetySeal.component.ts`` and ch
 {% highlight typescript %}
 
     const lockFundsTransactionSigned = this.safetySealService.createAndSignLockFundsTransaction(signedTransaction, operatorAccount);
-
+    
     this.transactionHttp
       .announce(lockFundsTransactionSigned)
-      .subscribe(x => console.log(x), err => console.error(err));
-
+      .subscribe(x => console.log(x), err => {
+        this.errorMessage = err.message;
+      });
+    
     this.listener
       .confirmed(operatorAccount.address)
-      .filter((transaction) => transaction.transactionInfo !== undefined
-        && transaction.transactionInfo.hash === lockFundsTransactionSigned.hash)
-      .flatMap(ignored => this.transactionHttp.announceAggregateBonded(signedTransaction))
-      .subscribe(announcedAggregateBonded => console.log(announcedAggregateBonded),
-        err => console.error(err));
+      .pipe(
+        filter((transaction) => transaction.transactionInfo !== undefined
+          && transaction.transactionInfo.hash === lockFundsTransactionSigned.hash),
+        mergeMap(ignored => this.transactionHttp.announceAggregateBonded(signedTransaction))
+      )
+      .subscribe(announcedAggregateBonded => {
+          this.successMessage = announcedAggregateBonded.message;
+        }, 
+          err => {
+          this.errorMessage = err.message;
+        });
 {% endhighlight %}
 
 ### Simulating the digital sensor behaviour
@@ -145,8 +153,10 @@ The sensor is running the following code ``project/server/src/service/sensor.ser
 
             this.listener
                 .aggregateBondedAdded(address)
-                .filter((_) => !_.signedByAccount(sensorAccount.publicAccount))
-                .flatMap(transaction => this.digitalInspection(transaction, sensorAccount))
+                .pipe(
+                    filter((_) => !_.signedByAccount(sensorAccount.publicAccount)),
+                    mergeMap(transaction => this.digitalInspection(transaction, sensorAccount))
+                )
                 .subscribe(announcedTransaction => console.log(announcedTransaction),
                     err => console.log(err));
         });
@@ -177,7 +187,7 @@ The sensor is running the following code ``project/server/src/service/sensor.ser
     }
 
     private digitalInspection(transaction: AggregateTransaction, sensorAccount: Account): Observable<TransactionAnnounceResponse> {
-        // Assuming all inner transactions send to this account are inner transactions
+        // Assuming all inner transactions send to this account are transfer transactions
         const product: TransferTransaction = <TransferTransaction> transaction.innerTransactions[0];
         if (this.inspect()) return this.announceErrorTransaction(product.recipient, sensorAccount);
         else return this.announceCosignatureTransaction(transaction, sensorAccount);

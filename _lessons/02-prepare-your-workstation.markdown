@@ -33,7 +33,7 @@ This workshop is project based. We are going to add some new features to an exis
 Download the workshop repository.
 
 {% highlight bash %}
-git clone <url>
+git clone https://github.com/nemtech/nem2-workshop-nem-applied-to-supply-chain.git
 {% endhighlight %}
 
 Under ``project`` folder, there is a ``dashboard`` and a small ``server``  using Express. Both of them have installed the **NEM2 Software Development Kit** (layer 3). NEM2-SDK is the primary software development tool to create NEM2 components, such as other tools, libraries or applications.

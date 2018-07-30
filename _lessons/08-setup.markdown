@@ -101,16 +101,19 @@ The mosaic name is ``seal`` and the parent namespace ``company.safety``.  Create
 
 Define this mosaic as ``transferable``, with ``divisibility`` 0 (without decimals) and with ``lease duration`` of 90000 blocks. ``supply mutable`` option allows you to increase or decrease the amount of this type of mosaics in the future.
 
+    ℹ️ XEM has divisibility 6. 1.000 in absolute amount is written 1000000000. 
+
 {% highlight bash %}
 $> nem2-cli transaction mosaic --mosaicname seal --namespacename company.safety --amount 1000000 --transferable --supplymutable --divisibility 0 --duration 90000 --profile company
 {% endhighlight %}
 
-Transfer 1.000 company.safety:seal to operator's account.
+Transfer 1.000 company.safety:seal and 1.000 XEM to operator's account.
+
 
 {% highlight bash %}
 $> nem2-cli transaction transfer --profile company
 Introduce the recipient address: SA56XXRVS7NG7UH3DTZEMRIVJJLDXXPKAYQAFT2S
 Introduce the mosaics in the format namespaceName:mosaicName::absoluteAmount, add multiple mosaics splitting them with a comma:
-> company.safety:seal::1000
+> company.safety:seal::1000,nem:xem::1000000000
 
 {% endhighlight %}

@@ -69,10 +69,13 @@ export let createProduct: ExpressSignature = (request, response, next) => {
 
     // Save product in the database and return product created
     return productService.createProduct()
-        .flatMap(product => {
-            return productService.registerProductInBlockchain(companyAccount, product.id)
-                .map(ignored => product);
-        })
+        .pipe(
+            mergeMap(product => {
+                return productService.registerProductInBlockchain(companyAccount, product.id).pipe(
+                    map(ignored => product)
+                )
+            })
+        )
         .subscribe(product => response.status(200).send(product.toMessage()),
             err => response.status(400).send(err));
 };
