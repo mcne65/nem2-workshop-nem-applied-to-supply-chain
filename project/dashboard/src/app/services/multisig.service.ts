@@ -1,5 +1,15 @@
 import {Injectable} from "@angular/core";
-import {Account, PublicAccount, SignedTransaction, TransactionHttp,} from "nem2-sdk";
+import {
+  Account,
+  Deadline,
+  ModifyMultisigAccountTransaction,
+  MultisigCosignatoryModification,
+  MultisigCosignatoryModificationType,
+  NetworkType,
+  PublicAccount,
+  SignedTransaction,
+  TransactionHttp,
+} from "nem2-sdk";
 import {ConstantsService} from "./constants.service";
 
 

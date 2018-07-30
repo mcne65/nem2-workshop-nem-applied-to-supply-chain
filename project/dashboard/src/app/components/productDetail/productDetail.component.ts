@@ -31,7 +31,12 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
     this.getProductInfo();
-    this.startListener(this.publicAccount.address);
+
+    this.listener
+      .confirmed(this.publicAccount.address)
+      .subscribe(ignored => {
+        this.getProductInfo();
+      }, err => console.error(err));
   }
 
   private getProductInfo() {
@@ -66,14 +71,5 @@ export class ProductDetailComponent implements OnInit {
           this.transactions = transactions;
         },
         err => console.log(err));
-  }
-
-  private startListener(address: Address) {
-
-    this.listener
-      .confirmed(address)
-      .subscribe(ignored => {
-        this.getProductInfo();
-      }, err => console.error(err));
   }
 }

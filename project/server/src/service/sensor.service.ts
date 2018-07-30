@@ -70,7 +70,7 @@ export class SensorService {
     }
 
     private digitalInspection(transaction: AggregateTransaction, sensorAccount: Account): Observable<TransactionAnnounceResponse> {
-        // Assuming all inner transactions send to this account are inner transactions
+        // Assuming all inner transactions sent to this account are transfer transactions
         const product: TransferTransaction = <TransferTransaction> transaction.innerTransactions[0];
         if (this.inspect()) return this.announceErrorTransaction(product.recipient, sensorAccount);
         else return this.announceCosignatureTransaction(transaction, sensorAccount);

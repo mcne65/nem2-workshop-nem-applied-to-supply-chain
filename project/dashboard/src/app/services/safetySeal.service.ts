@@ -1,5 +1,21 @@
 import {Injectable} from "@angular/core";
-import {Account, Address, Deadline, LockFundsTransaction, NetworkType, SignedTransaction, UInt64, XEM} from "nem2-sdk";
+import {
+  Account,
+  Address,
+  AggregateTransaction,
+  Deadline,
+  EmptyMessage,
+  LockFundsTransaction,
+  Mosaic,
+  MosaicId,
+  NetworkType,
+  PlainMessage,
+  PublicAccount,
+  SignedTransaction,
+  TransferTransaction,
+  UInt64,
+  XEM
+} from "nem2-sdk";
 
 @Injectable()
 export class SafetySealService {
