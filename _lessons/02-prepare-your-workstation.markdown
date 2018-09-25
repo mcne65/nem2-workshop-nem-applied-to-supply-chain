@@ -28,7 +28,7 @@ curl localhost:3000/block/1
 
 
 ## Downloading the project files
-This workshop is project based. We are going to add some new features to an existing project.
+This workshop is project based. You are going to add some new features to an existing project.
 
 Download the workshop repository.
 
@@ -43,7 +43,7 @@ During this workshop, we are going to use the **Typescript SDK**.
 Install **typescript** globally. 
 
 {% highlight bash %}
-npm install -g typescript <url>
+npm install -g typescript
 {% endhighlight %}
 
 Run the ``server``.
