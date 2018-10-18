@@ -9,12 +9,17 @@ html{
   margin-top: 40px;
 }
 
+.gap-xs{
+  margin-top: 20px;
+}
+
+.btn-default{
+  background-color: #d0d0d0;
+}
+
 tbody{
   overflow-wrap: break-word;
   word-wrap: break-word;
-  -ms-word-break: break-all;
-  word-break: break-all;
-  word-break: break-word;
   -ms-hyphens: auto;
   -moz-hyphens: auto;
   -webkit-hyphens: auto;

@@ -10,7 +10,7 @@ export class ProductService {
     private transactionHttp: TransactionHttp;
 
     constructor() {
-        this.transactionHttp = new TransactionHttp(process.env.NODE_URL || 'http://localhost:3000');
+        this.transactionHttp = new TransactionHttp(process.env.NODE_URL || "http://localhost:3000");
     }
 
     public createProduct(): Observable<ProductModel> {
@@ -26,11 +26,11 @@ export class ProductService {
             .pipe(
                 mergeMap((_): any => _),
                 map((_: any) => new ProductModel(_.dataValues.id)),
-                toArray()
+                toArray(),
             );
     }
 
-    public registerProductInBlockchain(account: Account, productId: number) : Observable<TransactionAnnounceResponse>{
+    public registerProductInBlockchain(account: Account, productId: number): Observable<TransactionAnnounceResponse> {
 
         return new Observable<TransactionAnnounceResponse>();
     }

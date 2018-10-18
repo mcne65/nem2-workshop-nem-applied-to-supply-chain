@@ -1,16 +1,15 @@
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 import {
-  Account,
+  AggregateTransaction,
   Deadline,
   ModifyMultisigAccountTransaction,
   MultisigCosignatoryModification,
   MultisigCosignatoryModificationType,
   NetworkType,
   PublicAccount,
-  SignedTransaction,
   TransactionHttp,
-} from "nem2-sdk";
-import {ConstantsService} from "./constants.service";
+} from 'nem2-sdk';
+import {ConstantsService} from './constants.service';
 
 
 @Injectable()
@@ -22,11 +21,13 @@ export class MultisigService {
     this.transactionHttp = new TransactionHttp(ConstantsService.nodeURL);
   }
 
-  createMultisig(account: Account, minApproval: number, cosignatories: PublicAccount[]) : SignedTransaction {
+  createMultisigAccountTransaction(multisigCandidate: PublicAccount,
+                                   minApproval: number,
+                                   minRemoval: number,
+                                   cosignatories: PublicAccount[]): AggregateTransaction | undefined {
 
-    //TODO: createMultisig method not implemented
+    // Todo: createMultisig method not implemented
     alert('createMultisig method not implemented');
-    return new SignedTransaction();
-
+    return undefined;
   }
 }

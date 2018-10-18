@@ -25,7 +25,7 @@ export class ProductService {
   private namespaceHttp: NamespaceHttp;
   private mosaicService: MosaicService;
 
-  constructor(private http:HttpClient){
+  constructor(private http: HttpClient) {
     this.accountHttp = new AccountHttp(ConstantsService.nodeURL);
     this.transactionHttp = new TransactionHttp(ConstantsService.nodeURL);
     this.mosaicHttp = new MosaicHttp(ConstantsService.nodeURL);
@@ -34,24 +34,24 @@ export class ProductService {
 
   }
 
-  createProduct()  : Observable<Object>  {
-    return this.http.post(ConstantsService.apiURL+'/products/', null);
+  createProduct(): Observable<Object>  {
+    return this.http.post(ConstantsService.apiURL + '/products/', null);
   }
 
-  getDeterministicPublicAccount(id: string)  : PublicAccount {
+  getDeterministicPublicAccount(id: string): PublicAccount {
     const asset = Asset.deterministicPublicKey('company', id);
     return PublicAccount.createFromPublicKey(asset, NetworkType.MIJIN_TEST);
   }
 
-  getAllProducts()  : Observable<Object> {
-    return this.http.get(ConstantsService.apiURL+'/products/');
+  getAllProducts(): Observable<Object> {
+    return this.http.get(ConstantsService.apiURL + '/products/');
   }
 
-  getProductInfo(publicAccount: PublicAccount) : Observable<AccountInfo> {
+  getProductInfo(publicAccount: PublicAccount): Observable<AccountInfo> {
     return this.accountHttp.getAccountInfo(publicAccount.address);
   }
 
-  getProductTransactions(publicAccount:PublicAccount) : Observable<Transaction[]> {
+  getProductTransactions(publicAccount: PublicAccount): Observable<Transaction[]> {
     return this.accountHttp.transactions(publicAccount);
   }
 

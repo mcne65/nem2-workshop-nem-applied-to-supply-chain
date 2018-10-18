@@ -11,4 +11,4 @@ export let corsMiddlewater = (app) => {
         next();
 
     });
-}
+};

@@ -5,13 +5,17 @@ permalink: /lessons/solution/
 ---
 
 ## Architecture
-NEM features are available through the API interface on each node in the network itself. Blockchain technology can be used to create a **variety of solution architectures** with light-weight code in any language.
+NEM features are available through the API interface on each node in the network itself. This allows using blockchain technology in a **variety of solution architectures**.
 
 One possible solution for our use case:
 
 ![solution]({{ site.baseurl }}/assets/images/solution.png)
 
-The warehouse operator interacts through a **web app**. This web app interfaces with the **company's servers**, where all the products are tracked in an **existent SQL database**.The same web app directly connects with **NEM blockchain**, sending transactions from the client side.
+The warehouse operator interacts through a **web app**. 
+
+The app interfaces with the **company's servers**, where all the products are stored in an **existent SQL database**. 
+
+The app also connects with **NEM blockchain**, sending transactions from the client side.
 
 ## Where are we using NEM?
 
@@ -31,7 +35,7 @@ Product accounts don't need to send transactions, they only receive them. To gua
 
 *publicKey = sha256(company_identifier + product_identifier)*
 
-By doing this, if the database references are lost, or someone with access to our private network wants to review product information, just providing the company and product's identifier, the address can be generated again getting the product stored information.
+By doing this, if the database references are lost, the product information will still be retrievable from the blockchain. The address can be generated again providing the company and product's identifier.
 
 **Warehouse operator**
 

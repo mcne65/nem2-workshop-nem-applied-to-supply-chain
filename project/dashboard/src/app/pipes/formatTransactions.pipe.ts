@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {TransactionService} from "../services/transaction.service";
-import {Transaction} from "nem2-sdk";
+import {TransactionService} from '../services/transaction.service';
+import {Transaction} from 'nem2-sdk';
 
 
 @Pipe({name: 'formatTransaction'})

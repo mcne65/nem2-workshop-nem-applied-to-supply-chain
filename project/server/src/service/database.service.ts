@@ -12,7 +12,7 @@ export class DatabaseService {
         });
 
         this.ProductDatabase = this.database.define("Product", {
-            publicKey: Sequelize.STRING
+            publicKey: Sequelize.STRING,
         });
 
         this.ProductDatabase.sync();

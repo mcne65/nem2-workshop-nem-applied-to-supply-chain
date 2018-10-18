@@ -14,22 +14,23 @@ import {
 import {Observable} from "rxjs/Rx";
 import {mergeMap, filter} from "rxjs/operators";
 
+// tslint:disable:no-console
 export class SensorService {
 
     private transactionHttp: TransactionHttp;
     private listener: Listener;
 
     constructor() {
-        this.transactionHttp = new TransactionHttp(process.env.NODE_URL || 'http://localhost:3000');
-        this.listener = new Listener(process.env.NODE_URL || 'http://localhost:3000');
+        this.transactionHttp = new TransactionHttp(process.env.NODE_URL || "http://localhost:3000");
+        this.listener = new Listener(process.env.NODE_URL || "http://localhost:3000");
     }
 
-    startListening() {
+    public startListening() {
 
         const sensorPrivateKey = process.env.SENSOR_PRIVATE_KEY as string;
         const sensorAccount = Account.createFromPrivateKey(sensorPrivateKey, NetworkType.MIJIN_TEST);
 
-        this.listener.open().then(_ => {
+        this.listener.open().then((_) => {
 
             const address = process.env.SAFETY_DEPARTMENT_ADDRESS ?
                 Address.createFromRawAddress(process.env.SAFETY_DEPARTMENT_ADDRESS) : sensorAccount.address;
@@ -38,10 +39,10 @@ export class SensorService {
                 .aggregateBondedAdded(address)
                 .pipe(
                     filter((_) => !_.signedByAccount(sensorAccount.publicAccount)),
-                    mergeMap(transaction => this.digitalInspection(transaction, sensorAccount))
+                    mergeMap( (transaction) => this.digitalInspection(transaction, sensorAccount)),
                 )
-                .subscribe(announcedTransaction => console.log(announcedTransaction),
-                    err => console.log(err));
+                .subscribe( (announcedTransaction) => console.log(announcedTransaction),
+                    (err) => console.log(err));
         });
     }
 
@@ -50,29 +51,34 @@ export class SensorService {
         return (inspection < 2.5);
     }
 
-    private announceCosignatureTransaction(transaction: AggregateTransaction, sensorAccount: Account): Observable<TransactionAnnounceResponse> {
+    private announceCosignatureTransaction(transaction: AggregateTransaction, sensorAccount: Account)
+    : Observable<TransactionAnnounceResponse> {
         const cosignatureTransaction = CosignatureTransaction.create(transaction);
         const cosignatureSignedTransaction = sensorAccount.signCosignatureTransaction(cosignatureTransaction);
         return this.transactionHttp.announceAggregateBondedCosignature(cosignatureSignedTransaction);
     }
 
-    private announceErrorTransaction(recipient: Address, sensorAccount: Account): Observable<TransactionAnnounceResponse> {
+    private announceErrorTransaction(recipient: Address, sensorAccount: Account)
+    : Observable<TransactionAnnounceResponse> {
         const transferTransaction = TransferTransaction.create(
             Deadline.create(),
             recipient,
             [],
-            PlainMessage.create('Invalid inspection'),
-            NetworkType.MIJIN_TEST
+            PlainMessage.create("Invalid inspection"),
+            NetworkType.MIJIN_TEST,
         );
 
         const signedTransaction = sensorAccount.sign(transferTransaction);
         return this.transactionHttp.announce(signedTransaction);
     }
 
-    private digitalInspection(transaction: AggregateTransaction, sensorAccount: Account): Observable<TransactionAnnounceResponse> {
+    private digitalInspection(transaction: AggregateTransaction, sensorAccount: Account)
+    : Observable<TransactionAnnounceResponse> {
         // Assuming all inner transactions sent to this account are transfer transactions
-        const product: TransferTransaction = <TransferTransaction> transaction.innerTransactions[0];
-        if (this.inspect()) return this.announceErrorTransaction(product.recipient, sensorAccount);
-        else return this.announceCosignatureTransaction(transaction, sensorAccount);
+        const product: TransferTransaction = transaction.innerTransactions[0] as TransferTransaction;
+        if (this.inspect()) {
+            return this.announceErrorTransaction(product.recipient, sensorAccount);
+        }
+        return this.announceCosignatureTransaction(transaction, sensorAccount);
     }
 }

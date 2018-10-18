@@ -21,7 +21,7 @@ export class Server {
 
     public config() {
         // Start data base
-        require('dotenv').load();
+        require("dotenv").load();
         this.app.use(bodyParser.urlencoded({extended: true}));
         this.app.use(bodyParser.json({limit: "50mb"}));
         DatabaseService.init();
@@ -41,7 +41,7 @@ export class Server {
      */
     public routes() {
         [
-            ProductRouter.create()
+            ProductRouter.create(),
         ].forEach((route: IRoute) => {
             route.decorate(this.app);
         });
