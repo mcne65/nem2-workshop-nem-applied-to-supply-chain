@@ -189,7 +189,7 @@ SENSOR_PRIVATE_KEY='134..............526'
 
 {% endhighlight %}
 
-If you are interested, [review here the sensor's code](https://github.com/nemtech/nem2-workshop-nem-applied-to-supply-chain/blob/v0.9.0/project/server/src/service/sensor.service.ts).
+If you are interested, [review here the sensor's code](https://github.com/nemtech/nem2-workshop-nem-applied-to-supply-chain/blob/v0.2.0/project/server/src/service/sensor.service.ts).
 
     ℹ️ In a production environment, you would need to perform further checks, like reviewing the account who announced the transaction, as well as its content.
         
