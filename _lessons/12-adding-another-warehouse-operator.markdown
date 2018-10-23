@@ -28,7 +28,7 @@ Some important considerations to keep in mind:
 * Multisig accounts can have up to 10 cosignatories.
 * An account can be cosigner of up to 5 multisig accounts.
 * The number of smallest cosignatures to approve transactions and remove cosignatories is **editable**.
-* Multisig accounts can have as a cosigner another multisig, up to 3 levels.
+* Multisig accounts can have another multisig as a cosigner, up to 3 levels.
 
 ## Solution
 
