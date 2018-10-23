@@ -5,6 +5,8 @@
 layout: home
 ---
 
+[Japanese](https://qiita.com/44uk_i3/items/b9c4fc5751d93bf50a3d)
+
 ## Learning objectives
 
 In this workshop, you are going to work with a real use case: blockchain technology applied to **supply chain**. Discover NEM built-in features step by step, using them in an already existent application.

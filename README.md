@@ -2,6 +2,8 @@
 
 [Start](http://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain)
 
+[Japanese translation](https://qiita.com/44uk_i3/items/b9c4fc5751d93bf50a3d) by [@44uk_i3](https://qiita.com/44uk_i3)
+
 ## Learning objectives
 
 In this workshop, you are going to work with a real use case: blockchain technology applied to **supply chain**. Discover NEM built-in features step by step, using them in an already existent application.
