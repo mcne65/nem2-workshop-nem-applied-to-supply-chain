@@ -5,8 +5,6 @@ export class ProductModel {
     }
     public toMessage() {
 
-        return {
-            "id": this.id
-        }
+        return {id: this.id};
     }
 }

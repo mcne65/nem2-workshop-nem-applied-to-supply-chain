@@ -23,23 +23,22 @@ export class SafetySealService {
   constructor() {
   }
 
-  transferSafetySeal(productAddress: Address, operatorAccount: Account) : SignedTransaction | null{
+  createSafetySealTransaction(productAddress: Address): TransferTransaction | undefined {
 
-    //TODO: transfer safety seal
+    // Todo: transfer safety seal
     alert('transferSafetySeal method not implemented');
-    return null;
+    return undefined;
   }
 
-  createAndSignLockFundsTransaction(signedAggregatedTransaction : SignedTransaction, operatorAccount: Account) : SignedTransaction {
+  createLockFundsTransaction(signedAggregatedTransaction: SignedTransaction): LockFundsTransaction {
 
-    const lockFundsTransaction = LockFundsTransaction.create(
+    return LockFundsTransaction.create(
       Deadline.create(),
       XEM.createRelative(10),
       UInt64.fromUint(480),
       signedAggregatedTransaction,
       NetworkType.MIJIN_TEST);
 
-    return operatorAccount.sign(lockFundsTransaction);
   }
 
 }

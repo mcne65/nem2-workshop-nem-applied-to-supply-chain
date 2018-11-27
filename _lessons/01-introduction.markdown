@@ -14,7 +14,7 @@ NEM is built around a powerful system to customize your use of the blockchain. W
 
 Rather than forcing you to write your own “smart contract” from scratch or using off-blockchain methods to define custom assets for your application, NEM gives you direct access to a **specialized set of tested and secure on-blockchain features**.
                                                                                                                                                                                                                                                      
-As simple as **making API calls**, you can configure your own "Smart Assets" and make use of NEM’s powerful blockchain platform as your fast, secure, and scalable solution.
+ **Making API calls**, you can configure your own "Smart Assets" and make use of NEM’s powerful blockchain platform as your fast, secure, and scalable solution.
 
 ## Public and Private
 

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductService} from "../../services/product.service";
-import {AccountInfo, Address, Listener, MosaicAmountView, PublicAccount, Transaction, TransactionHttp} from "nem2-sdk";
-import {ConstantsService} from "../../services/constants.service";
+import {ProductService} from '../../services/product.service';
+import {AccountInfo, Address, Listener, MosaicAmountView, PublicAccount, Transaction, TransactionHttp} from 'nem2-sdk';
+import {ConstantsService} from '../../services/constants.service';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({

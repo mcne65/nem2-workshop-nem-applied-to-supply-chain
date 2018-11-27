@@ -6,9 +6,9 @@ permalink: /lessons/authorisation-modelling/
 
 ## Who and how?
 
-At this point, we are not going to think about which specific technologies or programming languages we are going to use to fit our objectives. 
+At this point, we are not going to think about which specific technologies we will use to fit our objectives. 
 
-Before starting developing, it is time to define who is allowed to do what, closing the gap between the physical and digital world. 
+Before starting to develop, we will define who is allowed to do what. In other words, we will be closing the gap between the physical and digital world. 
 
 * [Entity-Control-Boundary Pattern](http://www.cs.sjsu.edu/~pearce/modules/patterns/enterprise/ecb/ecb.htm)
 

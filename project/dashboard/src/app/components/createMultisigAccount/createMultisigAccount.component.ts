@@ -1,127 +1,94 @@
 import {Component, OnInit} from '@angular/core';
-
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {
   Account,
-  Address,
+  AggregateTransaction,
+  Deadline,
   Listener,
   ModifyMultisigAccountTransaction,
+  MultisigCosignatoryModification,
+  MultisigCosignatoryModificationType,
   NetworkType,
   PublicAccount,
-  TransactionHttp
-} from "nem2-sdk";
+  TransactionHttp,
+} from 'nem2-sdk';
+import {isValidPublicKey} from '../../validators/nem.validator';
+import {filter} from "rxjs/operators";
 import {ConstantsService} from "../../services/constants.service";
-import {MultisigService} from "../../services/multisig.service";
-
-import {filter} from 'rxjs/operators';
+import {MultisigService} from '../../services/multisig.service';
 
 @Component({
   selector: 'app-create-multisig-account',
-  templateUrl: './createMultisigAccount.component.html',
-
+  templateUrl: './createMultisigAccount.component.html'
 })
-
-
 export class CreateMultisigAccountComponent implements OnInit {
 
+  createMultisigForm: FormGroup;
   transactionHttp: TransactionHttp;
   listener: Listener;
-  privateKey: string;
-  minApproval: number;
-  cosignatories: string[];
-  errorMessage: string;
-  successMessage: string;
-  progress: string;
+  progress: Object;
 
-  constructor(private multisigService: MultisigService) {
-    this.transactionHttp = new TransactionHttp(ConstantsService.nodeURL);
+  constructor(private formBuilder: FormBuilder, private multisigService: MultisigService) {
+
     this.listener = new Listener(ConstantsService.listenerURL, WebSocket);
-    this.privateKey = '';
-    this.minApproval = 1;
-    this.cosignatories = ['',];
-    this.errorMessage = '';
-    this.successMessage = '';
-    this.progress = '';
+    this.transactionHttp = new TransactionHttp(ConstantsService.nodeURL);
+
+    this.createMultisigForm = this.formBuilder.group({
+      'privateKey': ['', Validators.required],
+      'newCosignatories': formBuilder.array([this.createPublicKeyInput()]),
+      'minApproval': [0, Validators.required],
+      'minRemoval': [0, Validators.required]
+    });
+
+  }
+
+  createPublicKeyInput(): FormGroup {
+    return this.formBuilder.group({
+      publicKey : ['', isValidPublicKey]
+    });
+  }
+
+  addCosignatory() {
+    const cosignatories = this.createMultisigForm.get('newCosignatories') as FormArray;
+    cosignatories.controls.push(this.createPublicKeyInput());
+  }
+
+  createMultisigAccount(form) {
+
+    const account = Account.createFromPrivateKey(form.privateKey, NetworkType.MIJIN_TEST);
+
+    const aggregateTransaction = this.multisigService
+      .createMultisigAccountTransaction(account.publicAccount, form.minApproval, form.minRemoval, form.newCosignatories);
+
+    const signedTransaction = account.sign(aggregateTransaction!);
+
+    this.listener.open().then(() => {
+      this.listener
+        .confirmed(account.address)
+        .pipe(
+          filter((transaction) => transaction.transactionInfo !== undefined
+            && transaction.transactionInfo.hash === signedTransaction.hash)
+        )
+        .subscribe(ignored =>  this.progress = {'message': 'Transaction confirmed', 'code': 'CONFIRMED'},
+          err =>  this.progress = {'message': err, 'code': 'ERROR'});
+
+      this.listener
+        .status(account.address)
+        .pipe(
+          filter( (status) => status.hash === signedTransaction.hash)
+        )
+        .subscribe(errorStatus =>  this.progress = {'message': errorStatus.status, 'code': 'ERROR'},
+          err =>  this.progress = {'message': err, 'code': 'ERROR'});
+
+    });
+
+    this.transactionHttp
+      .announce(signedTransaction)
+      .subscribe( ignored =>
+          this.progress = {'message': 'Transaction unconfirmed', 'code': 'UNCONFIRMED'},
+        err => this.progress = {'message': err, 'code': 'ERROR'});
   }
 
   ngOnInit() {}
 
-  areAccountsValid(){
-
-    try{
-      this.cosignatories.map(cosignatory => {
-        return PublicAccount.createFromPublicKey(cosignatory, NetworkType.MIJIN_TEST);
-      });
-      Account.createFromPrivateKey(this.privateKey, NetworkType.MIJIN_TEST);
-      return true;
-    }
-    catch(e){
-      return false;
-    }
-  }
-
-  addCosignatory() {
-    this.cosignatories.push('');
-  }
-
-  createMultisig() {
-
-    this.successMessage = '';
-    this.errorMessage = '';
-
-    const account = Account
-      .createFromPrivateKey(this.privateKey, NetworkType.MIJIN_TEST);
-
-    const cosignatories = this.cosignatories.map(cosignatory => {
-      return PublicAccount.createFromPublicKey(cosignatory, NetworkType.MIJIN_TEST);
-    });
-
-    const signedTransaction = this.multisigService.createMultisig(account, this.minApproval, cosignatories);
-
-    this.listener.open().then(() => {
-
-      this.startListeners(account.address, signedTransaction.hash);
-
-      this.transactionHttp
-        .announce(signedTransaction)
-        .subscribe(x => {
-            this.successMessage = x.message;
-          },
-          err => {
-            this.errorMessage = err;
-          });
-
-    });
-
-    this.privateKey = '';
-  }
-
-  private startListeners(address: Address, hash: string) {
-    this.listener
-      .status(address)
-      .subscribe(errorStatus => {
-          this.progress = errorStatus.status;
-        }, err => console.error(err));
-
-    this.listener
-      .unconfirmedAdded(address)
-      .pipe(
-        filter((transaction) => transaction instanceof ModifyMultisigAccountTransaction
-          && transaction.transactionInfo !== undefined
-          && transaction.transactionInfo.hash === hash)
-        )
-      .subscribe(ignored => {
-          this.progress = 'Transaction unconfirmed';
-        }, err => console.error(err));
-
-    this.listener
-      .confirmed(address)
-      .pipe(
-        filter((transaction) => transaction instanceof ModifyMultisigAccountTransaction
-          && transaction.transactionInfo !== undefined
-          && transaction.transactionInfo.hash === hash)
-      )
-      .subscribe(ignored => {
-          this.progress = 'Transaction confirmed';
-        }, err => console.error(err));
-  }
 }

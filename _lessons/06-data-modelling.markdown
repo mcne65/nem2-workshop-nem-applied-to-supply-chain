@@ -4,11 +4,11 @@ title:  "Data modelling"
 permalink: /lessons/data-modelling/
 ---
 
-The blockchain is a profoundly disrupting technology. Existent businesses can find it difficult to translate blockchain implementation that could replace their existing core processes. Even startups and new companies could have problems defining large scope decentralised applications.
+The blockchain is a disrupting technology. Existent businesses can find it difficult to  replace their existing core processes. Even startups and new companies could have problems defining large scope decentralised applications.
 
 When developing software, it is common to use **different technologies**.
 
-There are specific things we could solve efficiently using NEM blockchain. For some others, it will be better to use relational and non-relational databases altogether, or distributed storage system like IPFS.
+There are specific things we could solve efficiently using NEM blockchain. For some others, use relational and non-relational databases altogether, or distributed storage system like IPFS.
 
 This module explains a subset of built-in features available in NEM blockchain. Take a few minutes to read about them, thinking about how to use them in the system we previously designed.
 
@@ -28,7 +28,7 @@ Consider NEM accounts as containers for assets in the blockchain. An account cou
 
 After registering your namespace, you can define subnamespaces, as well as your mosaics.
 
-[Mosaics](https://nemtech.github.io/concepts/mosaic.html) are part of what makes the Smart Asset System different and flexible. They are fixed assets on the NEM blockchain that can represent a set of multiple identical things that do not change. A mosaic could be as simple as a token, but it could also represent a collection of more specialised assets like reward points, shares of stock, signatures, status flags, votes or even other currencies.
+[Mosaics](https://nemtech.github.io/concepts/mosaic.html) are part of what makes the Smart Asset System different and flexible. They are fixed assets on the NEM blockchain that can represent a set of multiple identical things that do not change. A mosaic could be a token, but it could also represent a collection of more specialised assets like reward points, shares of stock, signatures, status flags, votes or even other currencies.
                                                                                                                                                                                                  
 ## Transfer Transaction
 

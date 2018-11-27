@@ -44,7 +44,7 @@ export class CreateProductComponent implements OnInit {
       });
   }
 
-  private clearError(){
+  private clearError() {
     this.errorMessage = '';
   }
 }

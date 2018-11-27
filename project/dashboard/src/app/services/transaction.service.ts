@@ -31,7 +31,7 @@ import {
   Transaction,
   TransferTransaction,
 } from 'nem2-sdk';
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 
 
 @Injectable()

@@ -2,13 +2,26 @@
 
 [Start](http://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain)
 
+[Japanese translation](https://qiita.com/44uk_i3/items/b9c4fc5751d93bf50a3d) by [@44uk_i3](https://qiita.com/44uk_i3)
+
 ## Learning objectives
 
-If you are a **software developer**, new to blockchain development and don’t know where to start, then this workshop is for you.
+In this workshop, you are going to work with a real use case: blockchain technology applied to **supply chain**. Discover NEM built-in features step by step, using them in an already existent application.
 
-On the other hand, if you are already experienced in blockchain development, take the workshop to start discovering **NEM blockchain**. You will be surprised by how developer-friendly NEM actually is.
+After completing the workshop, you will be able to:
+
+## Learning objectives
 
 In this workshop, you are going to work with a real use case: blockchain technology applied to **supply chain**. Discover NEM built-in features step by step, using them in an already existent application.
+
+After completing the workshop, you will be able to:
+
+* Apply the NEM development cycle.
+* Develop applications using advanced NEM built-in features.
+
+## Target
+
+* Developers (NEM competent)
 
 ## Requirements
 
@@ -19,28 +32,6 @@ Before starting the workshop, install the following packages:
 * [Docker Compose](https://docs.docker.com/compose/install/)
 * [Node](https://nodejs.org/en/download/) >= 8.9.X.
 
-## Modules
-
-This workshop is divided into multiple modules.
-
-**Presentation**
-* Introduction
-* Prepare your workstation
-* Use case: Blockchain applied to supply chain
-
-**NEM Development Cycle**
-* Scope definition
-* Authorisation modelling
-* Data modelling
-* One Possible Solution
-
-**Hands-on**
-* Setup: Warehouse operator and safety seal
-* Registering products
-* Sending the safety seal
-* Adding a digital sensor
-* Adding another warehouse operator
-* Future work
 
 ## Contributing
 
