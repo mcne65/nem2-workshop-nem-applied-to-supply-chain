@@ -7,8 +7,6 @@ layout: home
 
 [Japanese](https://qiita.com/44uk_i3/items/b9c4fc5751d93bf50a3d)
 
-## Learning objectives
-
 In this workshop, you are going to work with a real use case: blockchain technology applied to **supply chain**. Discover NEM built-in features step by step, using them in an already existent application.
 
 After completing the workshop, you will be able to:
@@ -28,3 +26,39 @@ Before starting the workshop, install the following packages:
 * [Docker](https://docs.docker.com/install/)
 * [Docker Compose](https://docs.docker.com/compose/install/)
 * [Node](https://nodejs.org/en/download/) >= 8.9.X.
+
+## Labs
+
+### Lab 1 - Running Catapult and project files
+
+1\. [Introduction](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/introduction/)
+
+2\. [Prepare your workstation](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/prepare-your-workstation/)
+
+### Lab 2 - Applying the NEM development cycle
+
+3\. [Use case: Blockchain applied to supply chain](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/use-case//)
+
+4\. [Scope definition](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/scope-definition//)
+
+5\. [Authorisation modelling](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/authorisation-modelling/)
+
+6\. [Data modelling](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/data-modelling/)
+
+7\. [One possible solution](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/solution/)
+
+### Lab 3 - Implementing the use case
+
+8\. [Setup: Warehouse operator and safety seal](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/setup/)
+
+9\. [Registering products](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/registering-products/)
+
+10\. [Sending the safety seal](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/sending-the-safety-seal/)
+
+### Lab 4 - Extending the use case
+
+11\. [Adding a digital sensor](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/adding-a-digital-sensor/)
+
+12\. [Adding another operator](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/adding-another-operator/)
+
+13\. [Future work](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/future-work-multilevel-multisig-accounts/)
