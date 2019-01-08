@@ -15,7 +15,7 @@ You are going to **run a private chain** for learning purposes using [Catapult S
 1\. Make sure you have [docker](https://docs.docker.com/install/) and [docker compose](https://docs.docker.com/compose/install/) installed before running the following commands:
 
 {% highlight bash %}
-git clone https://github.com/tech-bureau/catapult-service-bootstrap
+git clone https://github.com/tech-bureau/catapult-service-bootstrap.git --branch v0.1.0
 cd catapult-service-bootstrap
 docker-compose up
 {% endhighlight %}
