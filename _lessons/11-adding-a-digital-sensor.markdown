@@ -197,7 +197,7 @@ The server opens a listener connection. It is notified when a new aggregate bond
  
 At that moment, ``digitalInspection()`` function is called. It returns a random number between 0 and 5. If it is bigger than 2.5, the product passes the inspection and the transaction is cosigned.
 
-If the number is inferior to 2.5, the sensor sends a Transfer Transaction with the message ``Invalid inspection``.
+If the number is less than 2.5, the sensor sends a Transfer Transaction with the message ``Invalid inspection``.
 
 ## Testing your changes
 
