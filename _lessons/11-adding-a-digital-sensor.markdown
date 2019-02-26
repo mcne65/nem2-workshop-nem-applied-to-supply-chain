@@ -8,7 +8,7 @@ permalink: /lessons/adding-a-digital-sensor/
 
 Recently, the company has included digital sensors to automatize part of the process. The goal is to decrease human errors, providing a new source of reliability.
 
-The warehouse operator still needs to check that the product meets the standards. After the warehouse operator announces the safety seal request, a sensor performs a digital inspection. The digital sensor confirm or deny the safety seal request.
+The warehouse operator still needs to check that the product meets the standards. After the warehouse operator announces the safety seal request, a sensor performs a digital inspection. The digital sensor confirms or denies the safety seal request.
 
 * If accepted, the safety seal is sent to the product. 
 * If denied, the sensor sends a transaction to the product, stating the product has not passed the inspection process.
@@ -189,7 +189,7 @@ SENSOR_PRIVATE_KEY='134..............526'
 
 {% endhighlight %}
 
-If you are interested, [review here the sensor's code](https://github.com/nemtech/nem2-workshop-nem-applied-to-supply-chain/blob/v0.2.0/project/server/src/service/sensor.service.ts).
+If you are interested, [review the sensor's code here](https://github.com/nemtech/nem2-workshop-nem-applied-to-supply-chain/blob/v0.2.0/project/server/src/service/sensor.service.ts).
 
     ℹ️ In a production environment, you would need to perform further checks, like reviewing the account who announced the transaction, as well as its content.
         
