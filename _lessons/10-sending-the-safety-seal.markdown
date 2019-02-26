@@ -60,7 +60,7 @@ If valid, the transaction reaches the network with an **unconfirmed status**.
 
     Never rely on a transaction which has the state unconfirmed. It is not clear if it will get included in a block.
 
-The transaction is **confirmed** once it is included in a block. The transaction is **confirmed** once it is included in a block. In case of a transfer transaction, the amount stated gets transferred from the sender’s account to the recipient’s account.
+The transaction is **confirmed** once it is included in a block. In case of a transfer transaction, the amount stated gets transferred from the sender’s account to the recipient’s account.
 
 ![screenshot-confirmed-transaction]({{ site.baseurl }}/assets/images/screenshot-confirmed.png)
 
