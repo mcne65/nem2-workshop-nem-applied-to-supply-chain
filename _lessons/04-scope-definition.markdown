@@ -8,7 +8,7 @@ permalink: /lessons/scope-definition/
 
 ## What?
 
-NEM is a **flexible blockchain** technology.  Instead of uploading all the application logic into the blockchain, you can use it's tested features through API calls for:
+NEM is a **flexible blockchain** technology.  Instead of uploading all the application logic into the blockchain, you can use its tested features through API calls for:
 
 * Transfer and storage of value.
 * Authorisation.
