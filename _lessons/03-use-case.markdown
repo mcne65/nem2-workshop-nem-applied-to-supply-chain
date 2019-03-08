@@ -16,7 +16,7 @@ The same person, or another operator, perform some tests to determine whether th
 
 Which is the exact value proposition to use blockchain in this use case?
 
-Traceability and transparency are vital in logistics. Perishable products are tracked through all the supply chain to decide if the goods can be sold to the consumers.
+Traceability and transparency are vital in logistics. Perishable products are tracked throughout the whole supply chain to decide if the goods can be sold to the consumers.
 
 We will use blockchain to:
 
