@@ -1,8 +1,9 @@
 # nem2-workshop-nem-applied-to-supply-chain
 
+<!-- 
 * [English](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/)
 * [日本語](https://qiita.com/44uk_i3/items/b9c4fc5751d93bf50a3d)
-* [中文](https://nemtechchina.github.io/nem2-workshop-nem-applied-to-supply-chain/)
+*[中文](https://nemtechchina.github.io/nem2-workshop-nem-applied-to-supply-chain/) -->
 
 In this workshop, you are going to work with a real use case: blockchain technology applied to **supply chain**. Discover NEM built-in features step by step, using them in an already existent application.
 
@@ -22,7 +23,7 @@ Before starting the workshop, install the following packages:
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * [Docker](https://docs.docker.com/install/)
 * [Docker Compose](https://docs.docker.com/compose/install/)
-* [Node](https://nodejs.org/en/download/) >= 8.9.X.
+* [Node](https://nodejs.org/en/download/) = 10.15.3 LTS
 
 ## Labs
 
@@ -38,9 +39,9 @@ Before starting the workshop, install the following packages:
 
 4\. [Scope definition](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/scope-definition//)
 
-5\. [Authorisation modelling](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/authorisation-modelling/)
+5\. [Authorization modeling](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/Authorization-modeling/)
 
-6\. [Data modelling](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/data-modelling/)
+6\. [Data modeling](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/data-modeling/)
 
 7\. [One possible solution](https://nemtech.github.io/nem2-workshop-nem-applied-to-supply-chain/lessons/solution/)
 
@@ -67,7 +68,7 @@ Feel free to start an issue or create a pull request. Check [CONTRIBUTING](CONTR
 
 ## License
 
-Copyright (c) 2018 NEM
+Copyright (c) 2018-present NEM
 Licensed under the [Apache License 2.0](LICENSE)
 
 [self]: https://github.com/nemtech/nem2-workshop-nem-applied-to-supply-chain

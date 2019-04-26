@@ -4,7 +4,7 @@ title:  "Future work"
 permalink: /lessons/future-work-multilevel-multisig-accounts/
 ---
 
-![multilevel-multisig-account]({{ site.baseurl }}/assets/images/multilevel-multisig-account.png)
+![multilevel-multisig-account]({{ site.baseurl }}/assets/images/multilevel-multisig-account.png){:width="600px"}
 
 There is still room for improvement. This figure shows how a product receives its **Quality Approval** only when its blockchain record shows it has a production date, safety inspection, and was shipped at the correct temperature. Sensors in the shipping container report temperature data every 5 minutes and consolidate it into a daily report.
 
@@ -14,4 +14,4 @@ Then, read [this thread](https://forum.nem.io/t/how-you-can-setup-a-basic-iot-tr
 
 Finally, we encourage you to develop the solution you come up with.  You could opt to do it on top of the current app, or create a whole new project. 
 
-Find in the [NEM Developer Center](https://nemtech.github.io/) more information about the built-in features, tools references and step-by-step guides.
+Find in the [NEM Developer Center](https://nemtech.github.io/) more information about the built-in features, tools references, and step-by-step guides.

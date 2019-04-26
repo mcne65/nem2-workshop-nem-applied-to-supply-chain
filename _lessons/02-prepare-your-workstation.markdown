@@ -4,25 +4,21 @@ title:  "Prepare your workstation"
 permalink: /lessons/prepare-your-workstation/
 ---
 
-![4-layered-architecture]({{ site.baseurl }}/assets/images/four-layer-architecture.png)
-
 ## Running Catapult Service Bootstrap
 
-**Catapult Server nodes** (layer 1) build the peer-to-peer blockchain network. **Catapult Rest nodes** (layer 2) provide the API gateway that the applications may use to access the blockchain and its features.
-
-You are going to **run a private chain** for learning purposes using [Catapult Service Bootstrap](https://github.com/tech-bureau/catapult-service-bootstrap) in less than 5 minutes. This service runs Catapult server instances and Catapult REST nodes locally.
+You are going to **run a private chain** for learning purposes using [Catapult Service Bootstrap](https://github.com/tech-bureau/catapult-service-bootstrap). 
 
 1\. Make sure you have [docker](https://docs.docker.com/install/) and [docker compose](https://docs.docker.com/compose/install/) installed before running the following commands:
 
-{% highlight bash %}
-git clone https://github.com/tech-bureau/catapult-service-bootstrap.git --branch v0.1.0
+{% highlight console %}
+git clone https://github.com/tech-bureau/catapult-service-bootstrap.git --branch v0.3.0
 cd catapult-service-bootstrap
 docker-compose up
 {% endhighlight %}
 
 2\. After the image has been downloaded and the service is running, check if you can get the first block information:
 
-{% highlight bash %}
+{% highlight console %}
 curl localhost:3000/block/1
 {% endhighlight %}
 
@@ -32,7 +28,7 @@ This workshop is project based. You are going to add some new features to an exi
 
 1\. Download the workshop repository.
 
-{% highlight bash %}
+{% highlight console %}
 git clone https://github.com/nemtech/nem2-workshop-nem-applied-to-supply-chain.git
 {% endhighlight %}
 
@@ -42,13 +38,13 @@ During this workshop, we are going to use the **Typescript SDK**.
 
 2\. Install **typescript** globally. 
 
-{% highlight bash %}
+{% highlight console %}
 npm install -g typescript
 {% endhighlight %}
 
 3\. Run the ``server``.
 
-{% highlight bash %}
+{% highlight console %}
 cd <name>/project/server
 npm install
 npm start
@@ -56,18 +52,18 @@ npm start
 
 4\. Open a new terminal, and run the ``dashboard``.
 
-{% highlight bash %}
-cd <name>/project/dasbhoard
+{% highlight console %}
+cd <name>/project/dashboard
 npm install
 npm start
 {% endhighlight %}
 
 ## Installing NEM2-CLI
 
-**NEM2-CLI** conveniently allows you to perform the most commonly used commands from your terminal i.e. using it to interact with the blockchain, setting up and account, sending funds, etc.
+**NEM2-CLI** conveniently allows you to perform the most commonly used commands from your terminal i.e. using it to interact with the blockchain, setting up an account, sending funds, etc.
 
 Install **nem2-cli** using npm.
 
-{% highlight bash %}
-npm i -g nem2-cli@0.9.7
+{% highlight console %}
+npm i -g nem2-cli@0.11.2
 {% endhighlight %}
