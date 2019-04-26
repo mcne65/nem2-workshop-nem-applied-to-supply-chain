@@ -4,117 +4,147 @@ title:  "Setup: Warehouse operator and safety seal"
 permalink: /lessons/setup/
 ---
 
-The creation of the company's, warehouse operator's account and registration of the mosaic are **actions that are performed once**. For this kind of tasks, we normally use the **NEM2-CLI**.
+The creation of accounts and registration of the mosaic are **actions that are performed once**. For this kind of tasks, we normally use the **NEM2-CLI**.
 
-## Creating warehouse operator's account
+## Creating the warehouse operator's account
 
 1\. Open a terminal, and generate a new account.
 
-{% highlight bash %}
-$> nem2-cli account generate
+{% highlight console %}
+nem2-cli account generate
+
 Introduce network type (MIJIN_TEST, MIJIN, MAIN_NET, TEST_NET): MIJIN_TEST
 Do you want to save it? [y/n]: y
 Introduce NEM 2 Node URL. (Example: http://localhost:3000): http://localhost:3000
 Insert profile name (blank means default and it could overwrite the previous profile): operator
 {% endhighlight %}
 
-2\. Get the warehouse operator's account's key pair and address.
+2\. Get the key pair and address.
 
-{% highlight bash %}
-$> nem2-cli profile list
+{% highlight console %}
+nem2-cli profile list
 {% endhighlight %}
 
 
-## Creating company's account
+## Creating the company's account
 
-Performing actions in the blockchain have a cost. This is necessary to provide an incentive for those who validate and secure the network. The fee is paid in **XEM**, the underlying cryptocurrency of the NEM network.
+Performing actions in the blockchain have a cost. This is necessary to provide an incentive for those who validate and secure the network. The fee is paid in **cat.currency**, the underlying cryptocurrency of the NEM network.
 
-    ℹ️ In a private network, you could set transaction fees to 0.
-
-Instead of creating a new account, let's use an account which already has XEM. We will need it to register the namespace and mosaic.
+Instead of creating a new account, let's use an account which already has cat.currency. We will need it to register the namespace and mosaic.
 
 1\. Open a terminal. Then go to the directory where you have download Catapult Bootstrap Service.
 
-{% highlight bash %}
+{% highlight console %}
 
-$> cd  build/generated-addresses/
-$> cat addresses.yaml
+cd  build/generated-addresses/
+cat addresses.yaml
 
 {% endhighlight %}
 
-Under the section ``nemesis_addresses``, you will find the key pairs which contain XEM.
-
+Under the section ``nemesis_addresses``, you will find the key pairs which contain cat.currency.
 
 2\. Load the first account as a profile in NEM2-CLI. This account identifies the company.
 
-{% highlight bash %}
-$> nem2-cli profile create
+{% highlight console %}
+nem2-cli profile create
 
 Introduce network type (MIJIN_TEST, MIJIN, MAIN_NET, TEST_NET): MIJIN_TEST
 Introduce your private key: 41************************************************************FF
 Introduce NEM 2 Node URL. (Example: http://localhost:3000): http://localhost:3000
 Insert profile name (blank means default and it could overwrite the previous profile): company
-
 {% endhighlight %}
 
-##  Register company's namespace 
 
-The company registers the namespace by announcing a [RegisterNamespaceTransaction](https://nemtech.github.io/guides/namespace/registering-a-namespace.html). Once announced the transaction, the server will return an OK response.
+## Create the safety seal mosaic
 
-**Receiving an OK response doesn’t mean the transaction is valid, hence is is still not included in a block.** A good practice is to monitor transactions before announcing them.
+The company registers a mosaic representing the safety seal by announcing a [NamespaceTransaction](https://nemtech.github.io/guides/mosaic/creating-a-mosaic.html). Once announced the transaction, the server will return an OK response.
+
+**Receiving an OK response does not mean that the transaction is valid, hence is is still not included in a block.** A good practice is to monitor transactions before announcing them.
 
 1\. Open two new terminals. The first terminal monitors announced transactions **validation errors**.
 
-{% highlight bash %}
-$> nem2-cli monitor status --profile company
+{% highlight console %}
+nem2-cli monitor status --profile company
 {% endhighlight %}
 
 Once a transaction is included in a block, you will see it under the **confirmed** terminal.
 
-{% highlight bash %}
-$> nem2-cli monitor confirmed --profile company
+{% highlight console %}
+nem2-cli monitor confirmed --profile company
 {% endhighlight %}
 
-2\. Register the namespace ``company``, setting a lease duration expressed in blocks.
+2\. Create a new mosaic with a total ``supply`` of 1.000.000. Define it as ``transferable``, with ``divisibility`` 0 (without decimals). The ``supply mutable`` option allows you to increase or decrease the amount of this type of mosaics in the future.
 
-    ℹ️ By default blocks complete every 15 seconds on average. 90000 blocks are 15,62 days approximately. 
+{% highlight console %}
+nem2-cli transaction mosaic --profile company
 
-{% highlight bash %}
-$> nem2-cli transaction namespace --name company --rootnamespace --duration 90000 --profile company
+Do you want an eternal mosaic? [y/n]: y
+Introduce mosaic divisibility: 0
+Do you want mosaic to have supply mutable? [y/n]: y
+Do you want mosaic to be transferable? [y/n]: y
+Do you want mosaic to have levy mutable? [y/n]: n
+Introduce amount of tokens: 1000000
 {% endhighlight %}
 
 3\. Did the network confirm the transaction? Check the opened terminals.
 
-##  Register company.safety subnamespace
+Once the mosaic has been registered, you can assign a name to the mosaic.
 
-Once the company's namespace has been registered, you can create related subnamespaces.
+##  Assign a name to the mosaic
 
-Register the subnamespace ``company.safety``:
+If everything went well, you should have the created mosaic identifier.
 
-{% highlight bash %}
-$> nem2-cli  transaction namespace --name safety --subnamespace  --parentname company --profile company
+{% highlight console %}
+Your mosaic id is:
+Hex:  6b6e113a0d16adc9
+Uint64: [ 219590089 1802375482]
 {% endhighlight %}
 
-## Create company.safety:seal mosaic
+The id ``6b6e113a0d16adc9`` is difficult to remember. Assigning a name to the mosaic, we will make it recognizable.
 
-The mosaic name is ``seal`` and the parent namespace ``company.safety``.  Create it with a total ``supply`` of 1.000.000.
+1\. Register the namespace ``company``, setting a lease duration expressed in blocks.
 
-Define this mosaic as ``transferable``, with ``divisibility`` 0 (without decimals) and with ``lease duration`` of 90000 blocks. ``supply mutable`` option allows you to increase or decrease the amount of this type of mosaics in the future.
+{% include note.html content="By default blocks complete every 15 seconds on average. 90000 blocks are 15,62 days approximately." %}
 
-    ℹ️ XEM has divisibility 6. 1.000 in absolute amount is written 1000000000. 
+{% highlight console %}
+nem2-cli transaction namespace  --profile company
 
-1\. Create the mosaic.
-
-{% highlight bash %}
-$> nem2-cli transaction mosaic --mosaicname seal --namespacename company.safety --amount 1000000 --transferable --supplymutable --divisibility 0 --duration 90000 --profile company
+Introduce namespace name: company
+Do you want to create a root namespace? [y/n]: y
+Introduce namespace rental duration: 90000
 {% endhighlight %}
 
-2\. Transfer 1.000 company.safety:seal and 1.000 XEM to operator's account.
+2\. Register the subnamespace ``company.safetyseal``:
 
-{% highlight bash %}
-$> nem2-cli transaction transfer --profile company
+{% highlight console %}
+nem2-cli transaction namespace  --profile company
+
+Introduce namespace name: safetyseal
+Do you want to create a root namespace? [y/n]: n
+Introduce the Parent name: company
+{% endhighlight %}
+
+3\. Link the namespace company.safetyseal to the mosaic.
+
+{% highlight console %}
+nem2-cli transaction mosaicalias --profile company
+
+Introduce namespace name: company.safetyseal
+Introduce mosaic in hexadecimal format: 6b6e113a0d16adc9
+Introduce alias action (0: Link, 1: Unlink): 0
+{% endhighlight %}
+
+
+## Transfer company.safety seals to the operator account
+
+Transfer 1.000 company.safety:seal and 1.000 cat.currency to the operator's account.
+
+{% include note.html content="cat.currency has divisibility 6. 1.000 in absolute amount is written relativeAmount * 10^divisibility = 1000000000. " %}
+
+{% highlight console %}
+nem2-cli transaction transfer --profile company
+
 Introduce the recipient address: SA56XXRVS7NG7UH3DTZEMRIVJJLDXXPKAYQAFT2S
-Introduce the mosaics in the format namespaceName:mosaicName::absoluteAmount, add multiple mosaics splitting them with a comma:
-> company.safety:seal::1000,nem:xem::1000000000
-
+Mosaic you want to get in the format (mosaicId(hex)|@aliasName)::absoluteAmount, (Ex: sending 1 cat.currency, @cat.currency::1000000). Add multiple mosaics with commas:
+@company.safetyseal::1000,@cat.currency::1000000000
 {% endhighlight %}

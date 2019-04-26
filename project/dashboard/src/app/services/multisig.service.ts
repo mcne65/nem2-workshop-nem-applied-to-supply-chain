@@ -24,10 +24,24 @@ export class MultisigService {
   createMultisigAccountTransaction(multisigCandidate: PublicAccount,
                                    minApproval: number,
                                    minRemoval: number,
-                                   cosignatories: PublicAccount[]): AggregateTransaction | undefined {
+                                   cosignatories: PublicAccount[]): AggregateTransaction {
 
-    // Todo: createMultisig method not implemented
-    alert('createMultisig method not implemented');
-    return undefined;
+    const newCosignatories = cosignatories.map( cosignatory => {
+      const publicAccount = PublicAccount.createFromPublicKey(cosignatory.publicKey, NetworkType.MIJIN_TEST);
+      return new MultisigCosignatoryModification(MultisigCosignatoryModificationType.Add, publicAccount);
+    });
+
+    const modifyMultisigAccountTransaction = ModifyMultisigAccountTransaction.create(
+      Deadline.create(),
+      minApproval,
+      minRemoval,
+      newCosignatories,
+      NetworkType.MIJIN_TEST);
+
+    return AggregateTransaction.createComplete(
+      Deadline.create(),
+      [modifyMultisigAccountTransaction.toAggregate(multisigCandidate)],
+      NetworkType.MIJIN_TEST,
+      []);
   }
 }

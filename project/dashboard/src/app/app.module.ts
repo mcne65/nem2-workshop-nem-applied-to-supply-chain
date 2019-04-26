@@ -16,7 +16,6 @@ import {MultisigService} from './services/multisig.service';
 import {TransactionService} from './services/transaction.service';
 import {SafetySealService} from './services/safetySeal.service';
 import {FormatTransactionPipe} from './pipes/formatTransactions.pipe';
-import {ProductDeterministicPublicAccountPipe} from './pipes/productDeterministicPublicAccount.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +25,6 @@ import {ProductDeterministicPublicAccountPipe} from './pipes/productDeterministi
     CreateMultisigAccountComponent,
     ProductDetailComponent,
     FormatTransactionPipe,
-    ProductDeterministicPublicAccountPipe,
   ],
   imports: [
     BrowserModule,

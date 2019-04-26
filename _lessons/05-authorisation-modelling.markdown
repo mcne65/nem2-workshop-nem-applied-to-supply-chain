@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Authorisation modelling"
+title:  "Authorization modeling"
 permalink: /lessons/authorisation-modelling/
 ---
 

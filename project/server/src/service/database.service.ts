@@ -9,6 +9,7 @@ export class DatabaseService {
         this.database = new Sequelize("database", null, null, {
             dialect: "sqlite",
             storage: path.resolve("database.sqlite"),
+            operatorsAliases: false
         });
 
         this.ProductDatabase = this.database.define("Product", {

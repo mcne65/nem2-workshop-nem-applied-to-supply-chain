@@ -1,7 +1,6 @@
 import {ExpressSignature} from "../IRoute";
 import {ProductService} from "../../domain/product/product.service";
 import {map, mergeMap, toArray} from "rxjs/operators";
-import {Account, NetworkType} from "nem2-sdk";
 
 export let createProduct: ExpressSignature = (request, response, next) => {
     const productService = new ProductService();
