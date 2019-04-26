@@ -7,19 +7,17 @@ import {
   Address,
   AggregateTransaction,
   Listener,
+  NamespaceHttp,
+  NetworkCurrencyMosaic,
   NetworkType,
-  PublicAccount,
-  SignedTransaction,
   Transaction,
   TransactionHttp,
   TransactionStatusError,
 } from 'nem2-sdk';
-import {Asset} from 'nem2-asset-identifier';
-
-import {filter} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {isValidPrivateKey} from '../../validators/nem.validator';
-import {mergeMap} from 'rxjs/internal/operators';
+import {ProductModel} from "../../models/product.model";
+import {filter, mergeMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-send-safety-seal',
@@ -28,9 +26,10 @@ import {mergeMap} from 'rxjs/internal/operators';
 export class SendSafetySealComponent implements OnInit {
 
   transactionHttp: TransactionHttp;
-  products: Object[];
+  namespaceHttp: NamespaceHttp;
   listener: Listener;
   sendSafetySealForm: FormGroup;
+  products: ProductModel[];
   confirmedTransactions: Transaction[];
   unconfirmedTransactions: Transaction[];
   statusErrors: TransactionStatusError[];
@@ -41,13 +40,13 @@ export class SendSafetySealComponent implements OnInit {
               private formBuilder: FormBuilder) {
 
     this.transactionHttp = new TransactionHttp(ConstantsService.nodeURL);
+    this.listener = new Listener(ConstantsService.listenerURL, WebSocket);
+    this.namespaceHttp = new NamespaceHttp(ConstantsService.nodeURL);
     this.products = [];
     this.sendSafetySealForm = this.formBuilder.group({
       'privateKey': ['', [Validators.required, isValidPrivateKey]],
       'selectedProduct': ['', [Validators.required]]
     });
-
-    this.listener = new Listener(ConstantsService.listenerURL, WebSocket);
     this.confirmedTransactions = [];
     this.unconfirmedTransactions = [];
     this.statusErrors = [];
@@ -59,8 +58,8 @@ export class SendSafetySealComponent implements OnInit {
 
     this.productService
       .getAllProducts()
-      .subscribe(response => {
-        this.products = <Object[]> response;
+      .subscribe(products => {
+        this.products = products;
       }, err => {
         console.log(err);
       });
@@ -94,8 +93,7 @@ export class SendSafetySealComponent implements OnInit {
 
     const operatorAccount = Account
       .createFromPrivateKey(form.privateKey, NetworkType.MIJIN_TEST);
-    const productPublicKey = Asset.deterministicPublicKey('company', form.selectedProduct);
-    const productAddress = PublicAccount.createFromPublicKey(productPublicKey, NetworkType.MIJIN_TEST).address;
+    const productAddress = new ProductModel(form.selectedProduct).getDeterministicPublicAccount().address;
 
     const safetySealTransaction = this.safetySealService.createSafetySealTransaction(productAddress);
     const signedTransaction = operatorAccount.sign(safetySealTransaction!);

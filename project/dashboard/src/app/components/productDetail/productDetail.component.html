@@ -5,13 +5,14 @@
       <h4>This product is not stored in the blockchain</h4>
       <p>An account is stored on the blockchain with the first transaction issued. You have generated
         keypairs for this product but did not use them in any transaction.</p>
+      <div class="alert alert-info"><i class="fas fa-spinner fa-spin"></i> If you have submitted the transaction recently, please wait until the transaction gets confirmed.</div>
     </div>
   </div>
 
   <div class="row" *ngIf="transactions.length !== 0">
     <!-- Account Info -->
     <div class="col-md-6">
-      <h1>Product #{{id}}</h1>
+      <h1>Product #{{product.id}}</h1>
 
       <table class="table" style="max-width: 100%;">
         <thead>
@@ -29,7 +30,7 @@
         </tr>
         <tr>
           <th scope="row">Public Key</th>
-          <td>{{publicAccount.publicKey}}</td>
+          <td>{{product.getDeterministicPublicAccount().publicKey}}</td>
         </tr>
         <tr>
           <th scope="row">Public Height</th>

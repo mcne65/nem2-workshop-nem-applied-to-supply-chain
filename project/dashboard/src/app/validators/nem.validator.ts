@@ -17,7 +17,7 @@ export function isValidAddress(control: AbstractControl) {
 
 export function isValidMessage(control: AbstractControl) {
   let isValid = true;
-  if (control.value.length > 1024) {
+  if (control.value.length >= 1024) {
     isValid = false;
   }
   return isValid ? null : {invalidMessage : true};
@@ -28,13 +28,12 @@ export function isValidPrivateKey(control: AbstractControl) {
 
   try {
     Account.createFromPrivateKey(control.value, NetworkType.MIJIN_TEST);
-  } catch {
+  } catch (e){
     isValid = false;
   }
   return isValid ? null : {invalidPrivateKey : true};
 
 }
-
 
 export function isValidPublicKey(control: AbstractControl) {
   let isValid = true;

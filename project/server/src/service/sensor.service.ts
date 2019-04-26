@@ -30,7 +30,7 @@ export class SensorService {
         const sensorPrivateKey = process.env.SENSOR_PRIVATE_KEY as string;
         const sensorAccount = Account.createFromPrivateKey(sensorPrivateKey, NetworkType.MIJIN_TEST);
 
-        this.listener.open().then((_) => {
+        this.listener.open().then((ignored) => {
 
             const address = process.env.SAFETY_DEPARTMENT_ADDRESS ?
                 Address.createFromRawAddress(process.env.SAFETY_DEPARTMENT_ADDRESS) : sensorAccount.address;
@@ -76,7 +76,7 @@ export class SensorService {
     : Observable<TransactionAnnounceResponse> {
         // Assuming all inner transactions sent to this account are transfer transactions
         const product: TransferTransaction = transaction.innerTransactions[0] as TransferTransaction;
-        if (this.inspect()) {
+        if (this.inspect() && product.recipient instanceof Address) {
             return this.announceErrorTransaction(product.recipient, sensorAccount);
         }
         return this.announceCosignatureTransaction(transaction, sensorAccount);

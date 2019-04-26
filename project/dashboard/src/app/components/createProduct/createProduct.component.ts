@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../../services/product.service";
+import {ProductModel} from "../../models/product.model";
 
 @Component({
   selector: 'app-create-product',
@@ -8,23 +9,21 @@ import {ProductService} from "../../services/product.service";
 })
 
 export class CreateProductComponent implements OnInit {
-
-  product: Object | null;
-  products: Object[];
+  product : ProductModel;
+  products: ProductModel[];
   errorMessage: string;
 
   constructor(private productService: ProductService) {
-    this.product = null;
-    this.products = [];
     this.errorMessage = '';
+    this.products = [];
   }
 
   ngOnInit() {
 
     this.productService
       .getAllProducts()
-      .subscribe(response => {
-        this.products = <Object[]> response;
+      .subscribe(products => {
+        this.products = products;
         this.clearError();
       }, err => {
         this.errorMessage = err.message;
@@ -35,8 +34,8 @@ export class CreateProductComponent implements OnInit {
   createProduct() {
     this.productService
       .createProduct()
-      .subscribe(response => {
-        this.product = response;
+      .subscribe(product => {
+        this.product = product;
         this.products.push(this.product);
         this.clearError();
       }, err => {

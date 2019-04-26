@@ -5,16 +5,16 @@ import {
   AccountHttp,
   AccountInfo,
   MosaicAmountView,
+  MosaicHttp,
   MosaicService,
-  NetworkType,
+  NamespaceHttp,
   PublicAccount,
   Transaction,
-  TransactionHttp,
-  MosaicHttp,
-  NamespaceHttp
+  TransactionHttp
 } from "nem2-sdk";
-import {Asset} from "nem2-asset-identifier";
 import {Observable} from "rxjs/Rx";
+import {map, mergeMap, toArray} from "rxjs/operators";
+import {ProductModel} from "../models/product.model";
 
 @Injectable()
 export class ProductService {
@@ -30,21 +30,24 @@ export class ProductService {
     this.transactionHttp = new TransactionHttp(ConstantsService.nodeURL);
     this.mosaicHttp = new MosaicHttp(ConstantsService.nodeURL);
     this.namespaceHttp = new NamespaceHttp(ConstantsService.nodeURL);
-    this.mosaicService = new MosaicService(this.accountHttp, this.mosaicHttp, this.namespaceHttp);
+    this.mosaicService = new MosaicService(this.accountHttp, this.mosaicHttp);
 
   }
 
-  createProduct(): Observable<Object>  {
-    return this.http.post(ConstantsService.apiURL + '/products/', null);
+  createProduct(): Observable<ProductModel> {
+    return this.http.post(ConstantsService.apiURL + '/products/', null)
+      .pipe(map(response => new ProductModel(response['id']))
+    );
   }
 
-  getDeterministicPublicAccount(id: string): PublicAccount {
-    const asset = Asset.deterministicPublicKey('company', id);
-    return PublicAccount.createFromPublicKey(asset, NetworkType.MIJIN_TEST);
-  }
-
-  getAllProducts(): Observable<Object> {
-    return this.http.get(ConstantsService.apiURL + '/products/');
+  getAllProducts(): Observable<ProductModel[]> {
+    return this.http.get(ConstantsService.apiURL + '/products/')
+      .pipe(
+        map(response => <Object[]>response),
+        mergeMap(_ => _),
+        map(product => new ProductModel(product['id'])),
+        toArray()
+      );
   }
 
   getProductInfo(publicAccount: PublicAccount): Observable<AccountInfo> {

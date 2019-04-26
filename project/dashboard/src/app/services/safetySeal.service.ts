@@ -14,8 +14,12 @@ import {
   SignedTransaction,
   TransferTransaction,
   UInt64,
-  XEM
+  NetworkCurrencyMosaic,
+  NamespaceId
 } from "nem2-sdk";
+import {ConstantsService} from "./constants.service";
+import {Observable, scheduled, asapScheduler, from} from "rxjs";
+import {map} from "rxjs/operators";
 
 @Injectable()
 export class SafetySealService {
@@ -30,15 +34,12 @@ export class SafetySealService {
     return undefined;
   }
 
-  createLockFundsTransaction(signedAggregatedTransaction: SignedTransaction): LockFundsTransaction {
-
+  createLockFundsTransaction(nativeCurrencyMosaic: MosaicId, signedAggregatedTransaction: SignedTransaction): LockFundsTransaction {
     return LockFundsTransaction.create(
       Deadline.create(),
-      XEM.createRelative(10),
+      new Mosaic(nativeCurrencyMosaic, UInt64.fromUint(10000000)),
       UInt64.fromUint(480),
       signedAggregatedTransaction,
       NetworkType.MIJIN_TEST);
-
   }
-
 }

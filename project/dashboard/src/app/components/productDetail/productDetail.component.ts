@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductService} from '../../services/product.service';
-import {AccountInfo, Address, Listener, MosaicAmountView, PublicAccount, Transaction, TransactionHttp} from 'nem2-sdk';
+import {AccountInfo, Listener, MosaicAmountView, Transaction, TransactionHttp} from 'nem2-sdk';
 import {ConstantsService} from '../../services/constants.service';
 import {ActivatedRoute} from '@angular/router';
+import {ProductModel} from "../../models/product.model";
 
 @Component({
   selector: 'app-product-detail',
@@ -12,8 +13,7 @@ import {ActivatedRoute} from '@angular/router';
 
 export class ProductDetailComponent implements OnInit {
   transactionHttp: TransactionHttp;
-  publicAccount: PublicAccount;
-  id: string;
+  product: ProductModel;
   transactions: Transaction[];
   mosaics: MosaicAmountView[];
   accountInfo: AccountInfo | null;
@@ -21,8 +21,7 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(private productService: ProductService, private activeRoute: ActivatedRoute) {
     this.transactionHttp = new TransactionHttp(ConstantsService.nodeURL);
-    this.id = this.activeRoute.snapshot.params['id'];
-    this.publicAccount = this.productService.getDeterministicPublicAccount(this.id);
+    this.product = new ProductModel(this.activeRoute.snapshot.params['id']);
     this.accountInfo = null;
     this.transactions = [];
     this.mosaics = [];
@@ -31,17 +30,18 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
     this.getProductInfo();
-
-    this.listener
-      .confirmed(this.publicAccount.address)
-      .subscribe(ignored => {
-        this.getProductInfo();
-      }, err => console.error(err));
+    this.listener.open().then(() => {
+      this.listener
+        .confirmed(this.product.getDeterministicPublicAccount().address)
+        .subscribe(ignored => {
+          this.getProductInfo();
+        }, err => console.error(err));
+    });
   }
 
   private getProductInfo() {
     this.productService
-      .getProductInfo(this.publicAccount)
+      .getProductInfo(this.product.getDeterministicPublicAccount())
       .subscribe(
         accountInfo => {
           this.accountInfo = accountInfo;
@@ -52,7 +52,7 @@ export class ProductDetailComponent implements OnInit {
         });
 
     this.productService
-      .getProductMosaics(this.publicAccount)
+      .getProductMosaics(this.product.getDeterministicPublicAccount())
       .subscribe(
         mosaics => {
           this.mosaics = mosaics;
@@ -63,7 +63,7 @@ export class ProductDetailComponent implements OnInit {
         });
 
     this.productService
-      .getProductTransactions(this.publicAccount)
+      .getProductTransactions(this.product.getDeterministicPublicAccount())
       .subscribe(
         transactions => {
           console.log(transactions);

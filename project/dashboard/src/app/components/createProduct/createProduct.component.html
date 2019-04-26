@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <div [hidden]="!product"class="alert alert-success" role="alert">
+      <div [hidden]="!product" class="alert alert-success" role="alert">
         <span>Product <strong>#{{product?.id}}</strong> created!</span>
       </div>
       <div [hidden]="!errorMessage" class="alert alert-danger" role="alert">
@@ -30,8 +30,8 @@
 
         <tr *ngFor="let product of products;">
           <th scope="row"> <a href="/product/{{product.id}}">#{{product.id}}</a></th>
-          <td>{{(product.id | productDeterministicPublicAccount).address.plain()}}</td>
-          <td>{{(product.id | productDeterministicPublicAccount).publicKey}}</td>
+          <td>{{(product.getDeterministicPublicAccount()).address.plain()}}</td>
+          <td>{{(product.getDeterministicPublicAccount()).publicKey}}</td>
         </tr>
         </tbody>
       </table>
